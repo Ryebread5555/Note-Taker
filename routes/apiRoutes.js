@@ -11,25 +11,24 @@ module.exports = (app) => {
         res.sendFile(path.join(__dirname, '../db/db.json'));
     });
 
-app.post('./api/notes', (req, res) => {
-    const db = fs.readFileSync('db/db.json');
+app.post('/api/notes', (req, res) => {
+    let db = fs.readFileSync('db/db.json');
     db = JSON.parse(db);
-    res.json(db);
 
-    const newNote = {
+    let newNote = {
         title: req.body.title,
         text: req.body.text,
         id: uniqid(),
     };
 
     db.push(newNote);
-    fs.writeFileSync('db/db.json', JSON.stringify(db));
+    fs.writeFileSync('db/db.json', JSON.stringify(db, null, 2));
     res.json(db);
 });
 
-app.delete('./api/notes/:id', (req, res) => {
-    const db = JSON.parse(fs.readFileSync('db/db.json'));
-    const deleteNote = db.filter(item => item.id !== req.params.id);
+app.delete('/api/notes/:id', (req, res) => {
+    let db = JSON.parse(fs.readFileSync('db/db.json'));
+    let deleteNote = db.filter(item => item.id !== req.params.id);
     fs.writeFileSync('db/db.json', JSON.stringify(deleteNote));
     res.json(deleteNote);
 });
