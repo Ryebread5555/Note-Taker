@@ -2,7 +2,7 @@
 const path = require('path');
 const fs = require('fs');
 
-var uniqId = require('uniqid');
+var uniqid = require('uniqid');
 
 // create routing
 module.exports = (app) => {
@@ -19,7 +19,7 @@ app.post('./api/notes', (req, res) => {
     const newNote = {
         title: req.body.title,
         text: req.body.text,
-        id: uniqId(),
+        id: uniqid(),
     };
 
     db.push(newNote);
@@ -27,7 +27,6 @@ app.post('./api/notes', (req, res) => {
     res.json(db);
 });
 
-// TODO: Create DELETE /api/notes with query parameter containing the id of the note to delete.
 app.delete('./api/notes/:id', (req, res) => {
     const db = JSON.parse(fs.readFileSync('db/db.json'));
     const deleteNote = db.filter(item => item.id !== req.params.id);
@@ -35,4 +34,4 @@ app.delete('./api/notes/:id', (req, res) => {
     res.json(deleteNote);
 });
 
-}
+};
