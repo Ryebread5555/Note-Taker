@@ -21,6 +21,7 @@ your notes to a local server.
 - To run application on localhost use `npm start` in Terminal and open `http://localhost:3001` in browser.
 
 ## Deployed
+* https://note-taker-5555.herokuapp.com/
 
 ## Screenshot
 ![](./image/note-taker-screenshot.jpg)
