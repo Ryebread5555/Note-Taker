@@ -2,8 +2,6 @@
 const path = require('path');
 const fs = require('fs');
 
-var uniqid = require('uniqid');
-
 // create routing
 module.exports = (app) => {
 
@@ -12,13 +10,15 @@ module.exports = (app) => {
     });
 
 app.post('/api/notes', (req, res) => {
-    let db = fs.readFileSync('db/db.json');
+    let db = fs.readFileSync('db/db.json', 'utf8');
     db = JSON.parse(db);
 
+    const { title, text } = req.body;
+
     let newNote = {
-        title: req.body.title,
-        text: req.body.text,
-        id: uniqid(),
+        id: title,
+        title,
+        text,
     };
 
     db.push(newNote);
